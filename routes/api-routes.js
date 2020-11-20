@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 // Route for posting new workout
 router.post("/", ({ body }, res) => {
 	db.Workout.create(body).then((dbWorkout => {
-		res.json(dbWorkout);
+		console.log(dbWorkout);
 	})).catch(err => {
 		res.json(err);
 	});
