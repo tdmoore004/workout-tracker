@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Require in the workout schema.
-const db = require("../models/workout");
+const db = require("../models");
 
 // Route for getting all workout data.
 router.get("/", (req, res) => {
