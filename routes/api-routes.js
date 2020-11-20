@@ -28,9 +28,8 @@ router.put("/:id", (req, res) => {
 	Workout.findByIdAndUpdate(
         req.params.id,
         {
-            $push: {
-                exercises: req.body
-            }
+			$inc: { totalDuration: req.body.duration },
+			$push: {exercises: req.body}
         },
         (error, data) => {
             if (error) {
@@ -43,16 +42,13 @@ router.put("/:id", (req, res) => {
 });
 
 // Route for getting workouts based on specific range.
-router.get("/api/workouts/range", (req, res) => {
-    var date = new Date();
-    date.setDate(date.getDate() - 7)
-    Workout.find({ day: { "$gte": date } }, (error, data) => {
-        if (error) {
-            res.send(error);
-        } else {
-            res.json(data);
-        }
-    });
+router.get("/range", (req, res) => {
+	Workout.find({})
+		.then(dbWorkout => {
+			res.json(dbWorkout);
+		}).catch(err => {
+			res.json(err);
+		});
 });
 
 module.exports = router;
